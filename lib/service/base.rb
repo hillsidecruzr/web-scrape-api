@@ -19,10 +19,16 @@ module Service
       flush_json(data: data) if format == :json
     end
 
+    def filename_by_url
+      parts = URI.parse(site_url)
+
+      parts.host.gsub(".", "")
+    end
+
   private
 
     def flush_json(data:)
-      File.open("#{DATA_DIR}/file.json", "w") do |f|
+      File.open("#{DATA_DIR}/#{filename_by_url}.json", "w") do |f|
         f.puts data.to_json
       end
     end

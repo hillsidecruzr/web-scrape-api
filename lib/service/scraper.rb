@@ -19,7 +19,6 @@ module Service
       parse
       extract
 
-      puts extractions
       flush(data: extractions)
     end
 
