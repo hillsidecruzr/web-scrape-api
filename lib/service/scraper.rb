@@ -11,7 +11,7 @@ module Service
 
       @markup = ""
       @document = nil
-      @extractions = []
+      @extractions = {}
     end
 
     def exec
@@ -39,7 +39,7 @@ module Service
       extractors.each do |e|
         next unless EXTRACTORS.include? e
 
-        @extractions << EXTRACTORS[e].extract(document: document)
+        @extractions[e] = EXTRACTORS[e].extract(document: document)
       end
     end
   end
