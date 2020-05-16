@@ -68,6 +68,7 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    interactor (3.1.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -146,6 +147,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   faraday
+  interactor (~> 3.1)
   listen (>= 3.0.5, < 3.2)
   nokogiri
   puma (~> 4.1)

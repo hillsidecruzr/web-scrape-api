@@ -3,7 +3,8 @@ module Service
     attr_accessor :markup, :document, :extractions
 
     EXTRACTORS = {
-        links: Extractors::Links
+        links: Extractors::Links,
+        images: Extractors::Images
     }
 
     def initialize(site_url:, extractors:)
@@ -36,11 +37,17 @@ module Service
     end
 
     def extract
-      extractors.each do |e|
-        next unless EXTRACTORS.include? e
+      extractors.each do |extractor_name, opts|
+        next unless valid_extractor?(extractor: extractor_name)
 
-        @extractions[e] = EXTRACTORS[e].extract(document: document)
+        opts ||= {}
+
+        @extractions[extractor_name] = EXTRACTORS[extractor_name].extract(document: document, **opts)
       end
+    end
+
+    def valid_extractor?(extractor:)
+      EXTRACTORS.include? extractor
     end
   end
 end
