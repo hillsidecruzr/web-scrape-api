@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  get "/scrape", to: "scrape#get"
+  # Web
+  get "/webber", to: "application#index"
+
+
+  # Api
+  get "/scrape", to: "api/scrape#get"
 end

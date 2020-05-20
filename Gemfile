@@ -19,3 +19,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "interactor", "~> 3.1"
+
+gem "view_component", "~> 2.7"

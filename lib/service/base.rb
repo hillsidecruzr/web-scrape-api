@@ -2,14 +2,14 @@ require "json"
 
 module Service
   class Base
-    DATA_DIR = Rails.root.join("lib/data").freeze
+    DATA_DIR = Rails.root.join("storage/data").freeze
     FORMATS = [:json]
     EXTRACTORS = {}
 
-    attr_reader :site_url, :extractors
+    attr_reader :url, :extractors
 
-    def initialize(site_url:, extractors:)
-      @site_url = site_url
+    def initialize(url:, extractors:)
+      @url = url
       @extractors = extractors
     end
 
@@ -20,7 +20,7 @@ module Service
     end
 
     def filename_by_url
-      parts = URI.parse(site_url)
+      parts = URI.parse(url)
 
       parts.host.gsub(".", "")
     end

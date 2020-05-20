@@ -2,7 +2,7 @@ class WebScrapeJob < ApplicationJob
   queue_as :default
 
   def perform(url:)
-    Service::Scraper.new(site_url: url, extractors: {
+    Service::Scraper.new(url: url, extractors: {
       links: {
         context: "//a[contains(@class, 'grid-product__image-link')]",
         replace: true
