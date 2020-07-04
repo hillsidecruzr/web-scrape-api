@@ -1,14 +1,16 @@
 module Service
   class Scraper < Base
-    attr_accessor :markup, :document, :extractions
+    include ::Service::Concerns::Fetchable
+
+    attr_accessor :document, :extractions
 
     EXTRACTORS = {
         links: Extractors::Links,
         images: Extractors::Images
     }
 
-    def initialize(site_url:, extractors:)
-      super(site_url: site_url, extractors: extractors)
+    def initialize(url:, extractors:)
+      super(url: url, extractors: extractors)
 
       @markup = ""
       @document = nil
@@ -16,25 +18,13 @@ module Service
     end
 
     def exec
-      fetch
-      parse
+      @document = (fetchable >> parsable).call url
       extract
 
       flush(data: extractions)
     end
 
   private
-
-    def fetch
-      # @todo: Potentially handle redirects/moved-permanently responses
-      response = Faraday.get site_url
-
-      @markup = response.body if response.status == 200
-    end
-
-    def parse
-      @document = Nokogiri::HTML.parse(markup)
-    end
 
     def extract
       extractors.each do |extractor_name, opts|
