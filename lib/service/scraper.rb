@@ -1,6 +1,7 @@
 module Service
   class Scraper < Base
     include ::Service::Concerns::Fetchable
+    include ::Service::Concerns::Parsable
 
     attr_accessor :document, :extractions
 

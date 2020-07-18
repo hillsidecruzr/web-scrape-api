@@ -13,7 +13,7 @@ module Service
 
           return response.body if (response.status == 200 && stringify)
 
-          response
+          ""
         end
       end
 
