@@ -3,6 +3,6 @@ services:
   redis:
     image: redis
     volumes:
-      - ./storage/redis-data:/data:cached
+      - ./storage/redis-data:/data
     ports:
       - "6379:6379"
