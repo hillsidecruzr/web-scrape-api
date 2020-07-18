@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+  redis:
+    image: redis
+    volumes:
+      - ./storage/redis-data:/data:cached
+    ports:
+      - "6379:6379"
