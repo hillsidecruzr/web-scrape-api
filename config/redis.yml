@@ -1,0 +1,2 @@
+development:
+  url: <%= ENV.fetch("REDIS_HOST") %>:6379

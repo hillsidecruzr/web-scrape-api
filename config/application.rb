@@ -20,6 +20,8 @@ require "view_component/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+
 module WebScrapeApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -29,5 +31,7 @@ module WebScrapeApi
 
     # ActiveJob
     config.active_job.queue_adapter = :resque
+
+    config.redis = config_for :redis
   end
 end
