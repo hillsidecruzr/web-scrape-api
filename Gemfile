@@ -25,3 +25,7 @@ gem "interactor", "~> 3.1"
 gem "view_component", "~> 2.7"
 
 gem "resque", "~> 2.0"
+
+gem "mongoid", "~> 7.1"
+
+gem "webpacker", "~> 5.1"
