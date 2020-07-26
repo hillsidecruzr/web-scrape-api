@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'scrapes/index'
+  get 'scrapes/edit'
+  get 'scrapes/show'
+  get 'scrapes/update'
+  get 'scrapes/delete'
+  resources :scrapes
   mount Resque::Server, at: "/jobs"
 
   # Web

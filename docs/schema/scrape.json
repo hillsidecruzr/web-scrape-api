@@ -1,0 +1,42 @@
+[
+  {
+    "notes": "This object represents notes on the below schema",
+    "links": [
+      {
+        "multimedia": [
+          "This will be null if it is not a media type link",
+          "I am also not sure whether this is a thing or not. I am thinking an audio link that plays the audio in the webpage."
+        ]
+      }
+    ]
+  },
+  {
+    "name": "string|Human readable name of the scrape",
+    "url": "string|Url of the site being scraped",
+    "site_name": "string|Name of the site if included in a meta tag",
+    "images": [
+      {
+        "url": "string|Fully qualified URL of the image source",
+        "filetype": "string|File type of the image",
+        "size": {
+          "amount": "integer|Number value of the size of the image",
+          "measurement": "string|B/KB/MB/GB/etc"
+        }
+      }
+    ],
+    "links": [
+      {
+        "url": "string|Fully qualified URL of the image source",
+        "external": "boolean|Flag to denote whether this is a different domain or not",
+        "scrape": "$reference|Should be a non-nested reference to another scrape, if one exists",
+        "multimedia": {
+          "type": "string|Whether it is an image/video/audio/etc media",
+          "format": "string|Format type of the media i.e. jpg/mp3/etc"
+        },
+        "occurrences": "integer|Number of times this link URL has occurred on this scrape"
+      }
+    ],
+    "created_at": "timestamp|Mongoid will create this",
+    "updated_at": "timestamp|Mongoid will create this"
+  }
+]
