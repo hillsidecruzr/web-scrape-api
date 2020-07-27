@@ -6,27 +6,24 @@ module Service
           return unless document.present?
 
           query = replace ? "#{context}" : "#{context}//a"
-          document.xpath(query).map { |tag| linkify tag }
+          document.xpath(query).each do |tag|
+            uri = URI.parse tag[:href]
+
+            Link.new({
+               url: uri.absolute? ? tag[:href] : fully_qualified_url(document, tag[:href]),
+               external: uri.absolute?, # @todo: how do we pass in context of the scrape as a whole?
+               occurrences: 1, # @todo: refactor to query the collection to find others
+             })
+          end
         end
 
-        def linkify(tag)
-          uri = URI.parse tag[:href]
-
-          Link.new({
-            url: uri.absolute? ? tag[:href] : fully_qualified_url tag[:href],
-            external: uri.absolute?,
-            occurrences: 1, # @todo: refactor to query the collection to find others
-          })
-
-          # conditionally add multimedia
-        end
-
-        def fully_qualified_url(relative_url)
+        def fully_qualified_url(document, relative_url)
           result = document.xpath("//link[@rel='canonical']")
 
           uri = URI.parse result.first[:href]
 
-          "#{uri.scheme}://#{uri.hostname}/#{relative_url}"
+          # @todo: May need to do checking to make sure `relative_url` isn't prefixed with a "/"
+          "#{uri.scheme}://#{uri.hostname}#{relative_url}"
         end
       end
     end

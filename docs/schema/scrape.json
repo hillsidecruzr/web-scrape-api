@@ -29,10 +29,6 @@
         "url": "string|Fully qualified URL of the image source",
         "external": "boolean|Flag to denote whether this is a different domain or not",
         "scrape": "$reference|Should be a non-nested reference to another scrape, if one exists",
-        "multimedia": {
-          "type": "string|Whether it is an image/video/audio/etc media",
-          "format": "string|Format type of the media i.e. jpg/mp3/etc"
-        },
         "occurrences": "integer|Number of times this link URL has occurred on this scrape"
       }
     ],

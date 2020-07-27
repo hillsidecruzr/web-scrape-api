@@ -4,7 +4,10 @@ module Service
   class Base
     DATA_DIR = Rails.root.join("storage/data").freeze
     FORMATS = [:json, :database]
-    EXTRACTORS = {}
+    EXTRACTORS = {
+        links: Extractors::Links,
+        images: Extractors::Images
+    }
 
     attr_reader :url, :extractors, :extractions
 
@@ -58,7 +61,7 @@ module Service
         name: url,
         url: url,
         site_name: "",
-        images: extractions[:images],
+        # images: extractions[:images],
         links: extractions[:links]
       })
     end

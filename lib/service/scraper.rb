@@ -5,11 +5,6 @@ module Service
 
     attr_accessor :document, :persistance
 
-    EXTRACTORS = {
-        links: Extractors::Links,
-        images: Extractors::Images
-    }
-
     def initialize(url:, extractors:, persistance: :database)
       super(url: url, extractors: extractors)
 
