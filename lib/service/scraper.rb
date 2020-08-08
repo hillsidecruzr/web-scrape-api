@@ -10,6 +10,7 @@ module Service
 
       @markup = ""
       @document = nil
+      @persistance = persistance
     end
 
     def exec

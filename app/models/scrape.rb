@@ -5,6 +5,6 @@ class Scrape
   field :name, type: String
   field :url, type: String
   field :site_name, type: String
-  embeds_many :images
-  embeds_many :links
+  has_many :images
+  has_many :links
 end

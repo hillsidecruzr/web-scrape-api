@@ -5,5 +5,5 @@ class Image
   field :url, type: String
   field :filetype, type: String
   embeds_one :size
-  embedded_in :scrape
+  belongs_to :scrape
 end

@@ -42,7 +42,7 @@ module Service
 
         opts ||= {}
 
-        extractions[extractor_name] = EXTRACTORS[extractor_name].extract(document: document, **opts)
+        extractions[extractor_name] = EXTRACTORS[extractor_name].extract(url: url, document: document, **opts)
       end
     end
 
@@ -57,13 +57,15 @@ module Service
     end
 
     def flush_database(data:)
-      Scrape.create({
+      scrape = Scrape.create({
         name: url,
         url: url,
         site_name: "",
-        # images: extractions[:images],
         links: extractions[:links]
       })
+
+      # images: extractions[:images],
+      # scrape.links.create(extractions[:links])
     end
   end
 end
