@@ -2,10 +2,10 @@ module Api
   class ScrapeController < ApplicationController
     def get
       # @todo: Actually do this in the background
-      WebScrapeJob.perform_now(url: site_url_param)
+      scrape = WebScrapeJob.perform_now(url: site_url_param)
 
       # @todo: Provide up-to-date execution status
-      render json: {status: :executing}
+      render json: scrape, include: [:links, :images]
     end
 
     private
