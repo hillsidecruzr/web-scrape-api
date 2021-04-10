@@ -3,20 +3,29 @@ require "json"
 module Service
   class Base
     DATA_DIR = Rails.root.join("storage/data").freeze
-    FORMATS = [:json]
-    EXTRACTORS = {}
+    FORMATS = [:json, :database]
+    EXTRACTORS = {
+        links: Extractors::Links,
+        images: Extractors::Images
+    }
 
-    attr_reader :url, :extractors
+    attr_reader :url, :extractors, :extractions
 
     def initialize(url:, extractors:)
       @url = url
       @extractors = extractors
+      @extractions = {}
     end
 
     def flush(format: :json, data:)
       return unless FORMATS.include? format
 
-      flush_json(data: data) if format == :json
+      case format
+      when :json
+        flush_json(data: data)
+      when :database
+        flush_database(data: data)
+      end
     end
 
     def filename_by_url
@@ -27,10 +36,36 @@ module Service
 
   private
 
+    def extract
+      extractors.each do |extractor_name, opts|
+        next unless valid_extractor?(extractor: extractor_name)
+
+        opts ||= {}
+
+        extractions[extractor_name] = EXTRACTORS[extractor_name].extract(url: url, document: document, **opts)
+      end
+    end
+
+    def valid_extractor?(extractor:)
+      EXTRACTORS.include? extractor
+    end
+
     def flush_json(data:)
       File.open("#{DATA_DIR}/#{filename_by_url}.json", "w") do |f|
         f.puts data.to_json
       end
+    end
+
+    def flush_database(data:)
+      scrape = Scrape.create({
+        name: url,
+        url: url,
+        site_name: "",
+        links: extractions[:links]
+      })
+
+      # images: extractions[:images],
+      # scrape.links.create(extractions[:links])
     end
   end
 end

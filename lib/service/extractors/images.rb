@@ -2,7 +2,7 @@ module Service
   module Extractors
     module Images
       class << self
-        def extract(document:, context:)
+        def extract(url:, document:, context:)
           return unless document.present?
 
           document.xpath("#{context}//img").map do |tag|

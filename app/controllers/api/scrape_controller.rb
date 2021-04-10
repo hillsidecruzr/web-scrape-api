@@ -1,8 +1,10 @@
 module Api
   class ScrapeController < ApplicationController
     def get
-      WebScrapeJob.perform_later(url: site_url_param)
+      # @todo: Actually do this in the background
+      WebScrapeJob.perform_now(url: site_url_param)
 
+      # @todo: Provide up-to-date execution status
       render json: {status: :executing}
     end
 

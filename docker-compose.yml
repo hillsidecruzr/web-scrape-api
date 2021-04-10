@@ -6,3 +6,11 @@ services:
       - ./storage/redis-data:/data
     ports:
       - "6379:6379"
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: toor
+    ports:
+      - "27017:27017"
