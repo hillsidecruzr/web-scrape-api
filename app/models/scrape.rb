@@ -7,4 +7,5 @@ class Scrape
   field :site_name, type: String
   has_many :images
   has_many :links
+  has_many :containers
 end

@@ -5,7 +5,7 @@ module Api
       scrape = WebScrapeJob.perform_now(url: site_url_param)
 
       # @todo: Provide up-to-date execution status
-      render json: scrape, include: [:links, :images]
+      render json: scrape, include: [:links, :images, :containers]
     end
 
     private

@@ -6,7 +6,8 @@ module Service
     FORMATS = [:json, :database]
     EXTRACTORS = {
         links: Extractors::Links,
-        images: Extractors::Images
+        images: Extractors::Images,
+        containers: Extractors::Containers
     }
 
     attr_reader :url, :extractors, :extractions
@@ -61,7 +62,8 @@ module Service
         name: url,
         url: url,
         site_name: "",
-        links: extractions[:links]
+        links: extractions[:links],
+        containers: extractions[:containers]
       })
 
       # images: extractions[:images],
